@@ -1,1 +1,2 @@
 只有get请求才能用XXX/{} 来表示地址
+Model::create()有bug 不用  直接用new user() 然后赋值即可

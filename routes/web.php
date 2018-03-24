@@ -43,7 +43,25 @@ Route::get('/course/{id}', 'PageController@course')->middleware('auth');;
 Route::get('/myCourse/{user_id}', 'PageController@myCourse')->middleware('auth');;
 
 
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/index', 'Admin\PageController@index');
+    Route::get('/login', 'Admin\PageController@login');
+    Route::get('/course', 'Admin\PageController@course');
+    Route::get('/teacher', 'Admin\PageController@teacher');
+    Route::get('/student', 'Admin\PageController@student');
+
+
+    Route::group(['prefix' => 'api'], function () {
+
+        Route::post('/login', 'Admin\ServiceController@login');
+    });
+});
+
 Route::group(['prefix' => 'api'], function () {
     Route::post('/uploadCourse', 'ServiceController@uploadCourse')->middleware('auth');
     Route::post('/deleteCourse', 'ServiceController@deleteCourse')->middleware('auth');
+
+
 });
+

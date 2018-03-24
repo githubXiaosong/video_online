@@ -18,7 +18,15 @@ class PageController extends Controller
     public function test()
     {
 
-        dd(Course::where(['id'=>10])->with('user')->get());
+        $user = new User();
+
+        $user->name = 'xiaosong';
+        $user->email = '1054841161@qq.com';
+        $user->password = '21321321312';
+        $user->identity = 0;
+
+        $user->save();
+
     }
 
     /**
@@ -27,7 +35,7 @@ class PageController extends Controller
     public function courseList()
     {
         $courses = Course::with('user')->get();
-        return view('course.courselist')->with(["courses"=>$courses]);
+        return view('course.courselist')->with(["courses" => $courses]);
     }
 
 
@@ -39,7 +47,7 @@ class PageController extends Controller
 
         $course = Course::find($id);
 
-        return view('course.course')->with(["course"=>$course]);
+        return view('course.course')->with(["course" => $course]);
     }
 
 
@@ -52,7 +60,7 @@ class PageController extends Controller
         if ($user->identity != USER_IDENTITY_COMMON_TEACHER)
             return redirect('/home');
 
-        $courses = Course::where('user_id',$user_id)->get();
-        return view('course.myCourse')->with(["courses"=>$courses]);
+        $courses = Course::where('user_id', $user_id)->get();
+        return view('course.myCourse')->with(["courses" => $courses]);
     }
 }
